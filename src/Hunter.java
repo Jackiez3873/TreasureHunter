@@ -9,6 +9,8 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
+    private boolean testMode;
+
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -16,11 +18,14 @@ public class Hunter {
      * @param hunterName The hunter's name.
      * @param startingGold The gold the hunter starts with.
      */
-    public Hunter(String hunterName, int startingGold) {
+    public Hunter(String hunterName, int startingGold, boolean testMode) {
         this.hunterName = hunterName;
-        kit = new String[5]; // only 5 possible items can be stored in kit
+        this.testMode = testMode;
+        kit = new String[5];
         gold = startingGold;
     }
+
+
 
     //Accessors
     public String getHunterName() {
@@ -95,14 +100,21 @@ public class Hunter {
      * @param item The item to be added to the kit.
      * @return true if the item is not in the kit and has been added.
      */
-    private boolean addItem(String item) {
-        if (!hasItemInKit(item)) {
-            int idx = emptyPositionInKit();
-            kit[idx] = item;
-            return true;
+    public boolean addItem(String item) {
+        if (!testMode && hasItemInKit(item)) {
+            // If not in test mode and the item is already in the kit, return false
+            return false;
         }
 
-        return false;
+        int idx = emptyPositionInKit();
+
+        // Check if the index is valid and not already occupied
+        if (idx >= 0 && idx < kit.length) {
+            kit[idx] = item;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

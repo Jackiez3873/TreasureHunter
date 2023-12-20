@@ -18,6 +18,8 @@ public class TreasureHunter {
     private boolean hardMode;
     private boolean testMode;
 
+    private boolean easyMode;
+
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -26,6 +28,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
     }
 
     /**
@@ -54,17 +57,20 @@ public class TreasureHunter {
 
         // set hunter instance variable
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("Do you want easy, normal or hard mode?(e, n, h)");
         String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        if (hard.equals("h")) {
             hardMode = true;
             hunter = new Hunter(name, 10, false);
         } else if (hard.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100, true);
             prePopulateKit();
-        } else {
+        } else if (hard.equals("n")){
             hunter = new Hunter(name, 10, false);
+        } else if (hard.equals("e")) {
+            easyMode = true;
+            hunter = new Hunter(name, 20, false);
         }
 
     }
@@ -90,6 +96,10 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
+        }
+        if(easyMode) {
+            toughness = .2;
+            markdown = 1;
         }
 
         // note that we don't need to access the Shop object
@@ -149,7 +159,7 @@ public class TreasureHunter {
         if (choice.equals("b") || choice.equals("s")) {
             currentTown.enterShop(choice);
         } else if (choice.equals("m")) {
-            if (currentTown.leaveTown()) {
+            if (currentTown.leaveTown(easyMode)) {
                 // This town is going away so print its news ahead of time.
                 System.out.println(currentTown.getLatestNews());
                 enterTown();

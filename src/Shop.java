@@ -41,7 +41,6 @@ public class Shop {
      */
     public void enter(Hunter hunter, String buyOrSell) {
         customer = hunter;
-
         if (buyOrSell.equals("b")) {
             System.out.println("Welcome to the shop! We have the finest wares in town.");
             System.out.println("Currently we have the following items:");
@@ -75,6 +74,7 @@ public class Shop {
                 }
             }
         }
+        System.out.println("You left the shop");
     }
 
     /**

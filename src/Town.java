@@ -151,4 +151,14 @@ public class Town {
         double rand = Math.random();
         return (rand < 0.5);
     }
+    public void dig() {
+        int rand = (int) (Math.random() * 2) + 1;
+        if (rand == 1) {
+            int rand2 = (int) (Math.random() * 20) + 1;
+            System.out.println("You dug up " + rand2 + " gold!");
+            hunter.changeGold(rand2);
+        } else {
+            System.out.println("You dug but only found dirt");
+        }
+    }
 }

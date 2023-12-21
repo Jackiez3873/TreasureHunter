@@ -19,7 +19,7 @@ public class TreasureHunter {
     private boolean testMode;
 
     private boolean easyMode;
-
+    private boolean canDig;
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -29,6 +29,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode = false;
+        canDig = true;
     }
 
     /**
@@ -82,6 +83,7 @@ public class TreasureHunter {
             hunter.addItem("horse");
             hunter.addItem("boat");
             hunter.addItem("boots");
+            hunter.addItem("shovel");
         }
     }
     /**
@@ -141,6 +143,7 @@ public class TreasureHunter {
                 System.out.println("(S)ell something at the shop.");
                 System.out.println("(M)ove on to a different town.");
                 System.out.println("(L)ook for trouble!");
+                System.out.println("(D)ig for gold!");
                 System.out.println("Give up the hunt and e(X)it.");
                 System.out.println();
                 System.out.print("What's your next move? ");
@@ -164,12 +167,22 @@ public class TreasureHunter {
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
+            canDig = true;
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else if (choice.equals("Game Over")) {
             System.out.println("Game Over");
+        } else if (choice.equals("d")) {
+            if (!canDig) {
+                System.out.println("You already dug for gold in this town.");
+            } else if (!hunter.hasItemInKit("shovel")) {
+                System.out.println("You can't dig for gold without a shovel");
+            } else {
+                currentTown.dig();
+                canDig = false;
+            }
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }

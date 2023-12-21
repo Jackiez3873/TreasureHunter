@@ -21,7 +21,7 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold, boolean testMode) {
         this.hunterName = hunterName;
         this.testMode = testMode;
-        kit = new String[6];
+        kit = new String[7];
         gold = startingGold;
     }
 

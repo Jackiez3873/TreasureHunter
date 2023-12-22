@@ -19,6 +19,8 @@ public class TreasureHunter {
     private boolean testMode;
 
     private boolean easyMode;
+    private boolean samuraiMode;
+    private boolean hasSword;
     private boolean canDig;
     private boolean canHunt;
     /**
@@ -32,6 +34,7 @@ public class TreasureHunter {
         easyMode = false;
         canDig = true;
         canHunt = true;
+        samuraiMode = false;
     }
 
     /**
@@ -65,16 +68,19 @@ public class TreasureHunter {
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("h")) {
             hardMode = true;
-            hunter = new Hunter(name, 10, false);
+            hunter = new Hunter(name, 10, false, false);
         } else if (hard.equals("test")) {
             testMode = true;
-            hunter = new Hunter(name, 100, true);
+            hunter = new Hunter(name, 100, true, false);
             prePopulateKit();
         } else if (hard.equals("n")){
-            hunter = new Hunter(name, 10, false);
+            hunter = new Hunter(name, 10, false, false);
         } else if (hard.equals("e")) {
             easyMode = true;
-            hunter = new Hunter(name, 20, false);
+            hunter = new Hunter(name, 20, false, false);
+        } else if (hard.equals("s")) {
+            samuraiMode = true;
+            hunter = new Hunter(name, 10, false, true);
         }
 
     }
@@ -107,15 +113,19 @@ public class TreasureHunter {
             markdown = 1;
         }
 
+        if(hasSword) {
+            toughness = 0;
+        }
+
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown, hasSword, samuraiMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, shop.getHasSword());
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the

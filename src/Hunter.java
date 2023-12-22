@@ -10,7 +10,10 @@ public class Hunter {
     private String[] kit;
     private int gold;
     private boolean testMode;
+    private boolean samuraiMode;
     private String[] treasures;
+
+    private boolean hasSword;
 
 
     /**
@@ -19,12 +22,23 @@ public class Hunter {
      * @param hunterName The hunter's name.
      * @param startingGold The gold the hunter starts with.
      */
-    public Hunter(String hunterName, int startingGold, boolean testMode) {
+    public Hunter(String hunterName, int startingGold, boolean testMode, boolean samuraiMode) {
         this.hunterName = hunterName;
         this.testMode = testMode;
-        kit = new String[7];
+        this.samuraiMode = samuraiMode;
+        hasSword = false;
+        if (samuraiMode) {
+            kit = new String[8];
+        } else {
+            kit = new String[7];
+        }
+
         gold = startingGold;
         treasures = new String[3];
+    }
+
+    public void setHasSword(boolean hasSword) {
+        this.hasSword = hasSword;
     }
 
 
@@ -56,7 +70,7 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
+        if (gold < costOfItem || hasItemInKit(item)) {
             return false;
         }
 

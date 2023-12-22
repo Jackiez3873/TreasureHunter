@@ -14,6 +14,7 @@ public class Town {
     private int num1;
     private int num2;
     private int num3;
+    private boolean hasSword;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -21,8 +22,9 @@ public class Town {
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness) {
+    public Town(Shop shop, double toughness, boolean hasSword) {
         this.shop = shop;
+        this.hasSword = hasSword;
         this.terrain = getNewTerrain();
 
         // the hunter gets set using the hunterArrives method, which
@@ -54,6 +56,10 @@ public class Town {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
     }
+    public void setHasSword(boolean hasSword) {
+        this.hasSword = hasSword;
+    }
+
 
     /**
      * Handles the action of the Hunter leaving the town.
@@ -108,14 +114,20 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
-                printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
+            if (shop.getHasSword()) {
+                printMessage += Colors.RED + "the brawler, seeing your sword, realizes he picked a losing fight and gives you his gold" + Colors.RESET;
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);
             } else {
-                printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
-                printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
-                hunter.changeGold(-goldDiff);
+                if (Math.random() > noTroubleChance) {
+                    printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
+                    printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                    hunter.changeGold(goldDiff);
+                } else {
+                    printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
+                    printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
+                    hunter.changeGold(-goldDiff);
+                }
             }
         }
     }

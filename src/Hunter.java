@@ -234,4 +234,23 @@ public class Hunter {
             }
         }
     }
+    public void printTreasures() {
+        System.out.println("Treasures found: ");
+        boolean foundTreasures = false;
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] != null) {
+                foundTreasures = true;
+                break;
+            }
+        }
+        if (foundTreasures) {
+            for (int i = 0; i < treasures.length; i++) {
+                if (treasures[i] != null) {
+                    System.out.println(treasures[i]);
+                }
+            }
+        } else {
+            System.out.println("None");
+        }
+    }
 }

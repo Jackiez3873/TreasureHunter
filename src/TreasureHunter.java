@@ -139,6 +139,7 @@ public class TreasureHunter {
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter);
+            hunter.printTreasures();
             System.out.println(currentTown);
             if(!choice.equals("Game Over")) {
                 System.out.println("(B)uy something at the shop.");

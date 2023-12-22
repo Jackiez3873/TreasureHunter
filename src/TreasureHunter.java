@@ -41,6 +41,7 @@ public class TreasureHunter {
             welcomePlayer();
             enterTown();
             showMenu();
+            end();
     }
 
 
@@ -131,7 +132,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && !choice.equals("Game Over")) {
+        while (!choice.equals("x") && !choice.equals("Game Over") && !hunter.isGameOver()) {
             if(hunter.getGold() < 0) {
             choice = "Game Over";
             }
@@ -198,5 +199,8 @@ public class TreasureHunter {
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
+    }
+    private void end() {
+        System.out.println("Congratulations, you have found the last of the three treasures, you win!");
     }
 }

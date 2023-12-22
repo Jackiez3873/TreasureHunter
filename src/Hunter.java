@@ -253,4 +253,19 @@ public class Hunter {
             System.out.println("None");
         }
     }
+    public boolean isGameOver() {
+        int count = 0;
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] == null) {
+                break;
+            } else {
+                count++;
+            }
+        }
+        if (count == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

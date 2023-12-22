@@ -11,7 +11,9 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
-
+    private int num1;
+    private int num2;
+    private int num3;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -161,6 +163,36 @@ public class Town {
             hunter.changeGold(rand2);
         } else {
             System.out.println("You dug but only found dirt");
+        }
+    }
+    public void hunt() {
+        int rand = (int) (Math.random() * 4) + 1;
+        if (rand == 1) {
+            if (num1 >= 1) {
+                System.out.println("You already collected this treasure");
+            } else {
+                System.out.println("You found a crown!");
+                hunter.addTreasure("crown");
+                num1++;
+            }
+        } else if (rand == 2) {
+            if (num2 >= 1) {
+                System.out.println("You already collected this treasure");
+            } else {
+                System.out.println("You found a trophy!");
+                hunter.addTreasure("trophy");
+                num2++;
+            }
+        } else if (rand == 3) {
+            if (num3 >= 1) {
+                System.out.println("You already collected this treasure");
+            } else {
+                System.out.println("You found a gem!");
+                hunter.addTreasure("gem");
+                num3++;
+            }
+        } else {
+            System.out.println("You found dust");
         }
     }
 }

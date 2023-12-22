@@ -10,6 +10,7 @@ public class Hunter {
     private String[] kit;
     private int gold;
     private boolean testMode;
+    private String[] treasures;
 
 
     /**
@@ -23,6 +24,7 @@ public class Hunter {
         this.testMode = testMode;
         kit = new String[7];
         gold = startingGold;
+        treasures = new String[3];
     }
 
 
@@ -212,5 +214,24 @@ public class Hunter {
         }
 
         return -1;
+    }
+    public void addTreasure(String treasure) {
+        boolean alreadyHasTreasure = false;
+        for (int i = 0; i < treasures.length; i++) {
+            if (treasures[i] != null) {
+                if (treasures[i].equals(treasure)) {
+                    alreadyHasTreasure = true;
+                    break;
+                }
+            }
+        }
+        if (!alreadyHasTreasure) {
+            for (int i = 0; i < treasures.length; i++) {
+                if (treasures[i] == null) {
+                    treasures[i] = treasure;
+                    break;
+                }
+            }
+        }
     }
 }
